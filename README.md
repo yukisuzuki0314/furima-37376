@@ -60,7 +60,7 @@ Things you may want to cover:
 ### Association
 
 - belongs_to :user
-- has_one: order
+- has_one :order
 
 ## orders
 
@@ -79,16 +79,12 @@ Things you may want to cover:
 
 | Column                | Type       | Options                         |
 | --------------------- |------------|---------------------------------|
-| number                | integer    | null: false                     |
-| exp_month             | integer    | null: false                     |
-| exp_year              | integer    | null: false                     |
-| cvc                   | integer    | null: false                     |
-| postal_code           | integer    | null: false                     |
-| prefecture            | string     | null: false                     |
+| postal_code           | string     | null: false                     |
+| prefecture            | integer    | null: false                     |
 | city                  | string     | null: false                     |
-| addresses             | integer    | null: false                     |
+| addresses             | string     | null: false                     |
 | building              | string     |                                 |
-| phone_number          | integer    | null: false                     |
+| phone_number          | string     | null: false                     |
 | order                 | references | null: false,  foreign_key: true |
 
 ### Association
