@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, only: [:new, :edit]
+
+  before_action :set_tweet, only: [:edit, :show, :update]
 
   def index
     @items = Item.all.order(created_at: :desc)
@@ -19,8 +21,25 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
     @user = User.find(@item.user_id)
+  end
+
+  def edit
+    unless current_user.id == @item.user_id
+      redirect_to root_path
+    end
+    #学習メモ if文で実装する場合
+    #if current_user.id != @item.user_id
+      #redirect_to root_path
+    #end
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item.id)
+    else
+      render :edit
+    end
   end
 
   private
@@ -29,4 +48,8 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:item_name, :item_info, :category_id, :item_status_id, :shipping_fee_status_id, :prefecture_id,
                                  :scheduled_delivery_id, :price, :image).merge(user_id: current_user.id)
   end
+end
+
+def set_tweet
+  @item = Item.find(params[:id])
 end
