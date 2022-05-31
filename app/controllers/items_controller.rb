@@ -25,10 +25,13 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user.id == @item.user_id
-    else
+    unless current_user.id == @item.user_id
       redirect_to root_path
     end
+    #学習メモ if文で実装する場合
+    #if current_user.id != @item.user_id
+      #redirect_to root_path
+    #end
   end
 
   def update
