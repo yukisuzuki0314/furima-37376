@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]
 
   before_action :set_tweet, only: [:edit, :show, :update]
 
@@ -25,13 +25,11 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    unless current_user.id == @item.user_id
-      redirect_to root_path
-    end
-    #学習メモ if文で実装する場合
-    #if current_user.id != @item.user_id
-      #redirect_to root_path
-    #end
+    redirect_to root_path unless current_user.id == @item.user_id
+    # 学習メモ if文で実装する場合
+    # if current_user.id != @item.user_id
+    # redirect_to root_path
+    # end
   end
 
   def update
@@ -39,6 +37,16 @@ class ItemsController < ApplicationController
       redirect_to item_path(@item.id)
     else
       render :edit
+    end
+  end
+
+  def destroy
+    item = Item.find(params[:id])
+    if current_user.id == item.user_id
+      item.destroy
+      redirect_to root_path
+    else
+      redirect_to root_path
     end
   end
 
