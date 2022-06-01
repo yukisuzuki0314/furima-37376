@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit]
+  before_action :authenticate_user!, only: [:new, :edit, :destroy]
 
   before_action :set_tweet, only: [:edit, :show, :update]
 
@@ -42,8 +42,10 @@ class ItemsController < ApplicationController
 
   def destroy
     item = Item.find(params[:id])
-    if user_signed_in? && current_user.id == item.user_id
+    if current_user.id == item.user_id
       item.destroy
+      redirect_to root_path
+    else
       redirect_to root_path
     end
   end
