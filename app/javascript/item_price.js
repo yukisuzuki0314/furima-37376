@@ -1,6 +1,8 @@
 window.addEventListener('load', function(){
 
   const priceInput = document.getElementById("item-price");
+  if (!priceInput) return null;  //学習メモ priceInputなかったら以下は実行しない
+
   priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value;
     
