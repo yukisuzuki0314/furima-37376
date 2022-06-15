@@ -9,7 +9,7 @@ class OrderPayForm
   validates :prefecture_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
   validates :city, presence: true
   validates :addresses, presence: true
-  validates :phone_number, presence: true, length: { in: 10..11, message: 'is too short' }
+  validates :phone_number, presence: true, length: { in: 10..11, message: 'is invalid. Enter it as follows (e.g. 09012345678)' }
   validates :phone_number, format: { with: /\A[0-9]+\z/, message: 'is invalid. Input only number' }
   validates :token, presence: true
 
